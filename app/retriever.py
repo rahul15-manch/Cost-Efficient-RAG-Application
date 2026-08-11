@@ -46,6 +46,18 @@ def compute_evidence_coverage(scores: list[float]) -> float:
     coverage = sum(top_scores) / len(top_scores)
     return round(coverage, 3)
 
+def none_if_nan(value):
+    """Convert pandas/numpy NaN to None."""
+    if value is None:
+        return None
+    try:
+        import math
+        if isinstance(value, float) and math.isnan(value):
+            return None
+    except Exception:
+        pass
+    return value
+
 def retrieve(query: str, top_k: int | None, source_filter: str | None, section_filter: str | None) -> RetrievalResponse:
     start_time = time.perf_counter()
     
@@ -73,7 +85,7 @@ def retrieve(query: str, top_k: int | None, source_filter: str | None, section_f
         )
         
     table = get_table()
-    search = table.search(query_embedding).limit(k)
+    search = table.search(query_embedding)
     
     filters = []
     if source_filter is not None:
@@ -83,6 +95,8 @@ def retrieve(query: str, top_k: int | None, source_filter: str | None, section_f
         
     if filters:
         search = search.where(" AND ".join(filters))
+        
+    search = search.limit(k)
         
     results = search.to_pandas()
     
@@ -97,8 +111,8 @@ def retrieve(query: str, top_k: int | None, source_filter: str | None, section_f
         chunks.append(RetrievedChunk(
             chunk_id=row["chunk_id"],
             source=row["source"],
-            page=row.get("page"),
-            section=row.get("section"),
+            page=none_if_nan(row.get("page")),
+            section=none_if_nan(row.get("section")),
             text=row["text"],
             score=score,
             rank=i + 1

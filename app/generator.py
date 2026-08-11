@@ -10,8 +10,9 @@ _client = None
 def get_groq_client() -> Groq:
     global _client
     if _client is None:
-        if not settings.GROQ_API_KEY:
-            raise ValueError("Missing Groq API key")
+        from app.config import is_groq_configured
+        if not is_groq_configured():
+            raise ValueError("Groq API key not configured")
         _client = Groq(api_key=settings.GROQ_API_KEY)
     return _client
 
@@ -43,26 +44,30 @@ def generate_answer(question: str, retrieval_response: RetrievalResponse) -> tup
     start_time = time.perf_counter()
     
     prompt = build_prompt(question, retrieval_response.chunks)
-    client = get_groq_client()
     
-    response = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        model=settings.LLM_MODEL,
-        temperature=0,
-        max_tokens=512,
-    )
-    
-    answer = response.choices[0].message.content or ""
-    token_usage = {
-        "prompt_tokens": response.usage.prompt_tokens,
-        "completion_tokens": response.usage.completion_tokens,
-        "total_tokens": response.usage.total_tokens
-    }
+    try:
+        client = get_groq_client()
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model=settings.LLM_MODEL,
+            temperature=0,
+            max_tokens=512,
+        )
+        answer = response.choices[0].message.content or ""
+        token_usage = {
+            "prompt_tokens": response.usage.prompt_tokens,
+            "completion_tokens": response.usage.completion_tokens,
+            "total_tokens": response.usage.total_tokens
+        }
+    except Exception as e:
+        logger.error(f"Generation failed: {str(e)}")
+        answer = f"Error during generation: {str(e)}"
+        token_usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     
     end_time = time.perf_counter()
     generation_time_ms = round((end_time - start_time) * 1000, 2)

@@ -1,0 +1,34 @@
+{
+  "retrieval": {
+    "fixed": {
+      "recall@5": 1.0,
+      "recall@8": 1.0,
+      "mrr": 1.0,
+      "ndcg@5": 1.0
+    },
+    "adaptive": {
+      "recall@5": 1.0,
+      "recall@8": 1.0,
+      "mrr": 1.0,
+      "ndcg@5": 1.0
+    },
+    "latency_fixed": 1355.981274601072,
+    "latency_adaptive": 21.333891805261374
+  },
+  "generation": {
+    "faithfulness": 0.99,
+    "relevance": 1.0,
+    "tokens": {
+      "mean": 1035.8,
+      "median": 1116.0,
+      "p50": 1116.0,
+      "p95": 1134.0
+    },
+    "latency": {
+      "mean": 1640.688,
+      "median": 235.6,
+      "p50": 235.6,
+      "p95": 5871.853999999999
+    }
+  }
+}

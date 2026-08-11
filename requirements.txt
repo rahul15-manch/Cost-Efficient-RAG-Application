@@ -10,3 +10,10 @@ lancedb
 sentence-transformers
 pyarrow
 groq
+ranx
+pandas
+numpy<2.3.0
+tqdm
+streamlit==1.48.0
+matplotlib==3.10.5
+requests==2.32.5 

@@ -12,7 +12,7 @@ except LookupError:
     
 try:
     nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
+except Exception:
     try:
         nltk.download('punkt_tab')
     except Exception:

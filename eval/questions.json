@@ -1,0 +1,27 @@
+[
+  {
+    "id": "q1",
+    "question": "What metrics are used to evaluate retrieval quality?",
+    "gold_answer": "Recall@k, Hit Rate, MRR, nDCG@k, and context precision."
+  },
+  {
+    "id": "q2",
+    "question": "How does LanceDB reduce infrastructure cost?",
+    "gold_answer": "It is an embedded vector database that integrates directly into the application space."
+  },
+  {
+    "id": "q3",
+    "question": "What is the purpose of the confidence score in retrieval?",
+    "gold_answer": "It helps the system measure how strong the evidence is and skip generation when trust is low."
+  },
+  {
+    "id": "q4",
+    "question": "How does idempotent deduplication work?",
+    "gold_answer": "It hashes chunks to generate deterministic IDs, preventing the same content from being indexed multiple times."
+  },
+  {
+    "id": "q5",
+    "question": "What are the main components of the trust layer?",
+    "gold_answer": "Evidence heatmaps, failure analysis, and query reformulation."
+  }
+]

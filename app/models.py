@@ -102,6 +102,7 @@ class CitedChunk(BaseModel):
     page: int | None = None
     section: str | None = None
     score: float
+    text: str | None = None
 
 class AnswerResponse(BaseModel):
     question: str
@@ -136,3 +137,38 @@ class TrustResponse(BaseModel):
     generation_time_ms: float
     total_time_ms: float
     token_usage: dict
+
+class PipelineRequest(BaseModel):
+    question: str
+    top_k: int | None = None
+    source_filter: str | None = None
+    section_filter: str | None = None
+
+class StageMetrics(BaseModel):
+    retrieval_ms: float
+    generation_ms: float
+    trust_ms: float
+    total_ms: float
+
+class PipelineResponse(BaseModel):
+    request_id: str
+    question: str
+    answer: str
+    confidence: float
+    evidence_coverage: float
+    heatmap: list[HeatmapItem]
+    failure_analysis: FailureAnalysis
+    citations: list[CitedChunk]
+    token_usage: dict
+    metrics: StageMetrics
+
+class MetricsSnapshot(BaseModel):
+    total_requests: int
+    successful_requests: int
+    failed_requests: int
+    avg_retrieval_ms: float
+    avg_generation_ms: float
+    avg_total_ms: float
+    avg_confidence: float
+    total_prompt_tokens: int
+    total_completion_tokens: int
