@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     EMBED_MODEL: str = "all-MiniLM-L6-v2"
     
     LANCEDB_PATH: str = "data/processed/lancedb"
+    VECTOR_BACKEND: str = "lancedb"
     
     CHUNK_SIZE: int = 600
     CHUNK_OVERLAP: int = 100

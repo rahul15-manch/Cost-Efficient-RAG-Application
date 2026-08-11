@@ -66,6 +66,7 @@ class IndexResponse(BaseModel):
     total_vectors: int
     embedding_model: str
     embedding_dim: int
+    vector_backend: str
 
 class QueryRequest(BaseModel):
     question: str

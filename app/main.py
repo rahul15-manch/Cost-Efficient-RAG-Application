@@ -14,7 +14,8 @@ from app.models import (
 )
 from app.ingest import load_document
 from app.chunker import chunk_documents, chunk_document
-from app.lance_db import index_chunks, table_exists, get_table
+from app.lance_db import table_exists, get_table
+from app import vector_store
 from app.retriever import retrieve
 from app.generator import generate_answer
 from app.trust import build_heatmap, analyze_failure
@@ -116,7 +117,7 @@ def index_document_endpoint(request: IndexRequest):
         for doc in docs:
             all_chunks.extend(chunk_document(doc, settings.CHUNK_SIZE, settings.CHUNK_OVERLAP))
             
-        result = index_chunks(all_chunks)
+        result = vector_store.index_chunks(all_chunks)
         
         return IndexResponse(
             source=os.path.basename(request.path),
@@ -124,7 +125,8 @@ def index_document_endpoint(request: IndexRequest):
             chunks_skipped=result["skipped"],
             total_vectors=result["total"],
             embedding_model=result["embedding_model"],
-            embedding_dim=result["embedding_dim"]
+            embedding_dim=result["embedding_dim"],
+            vector_backend=vector_store.backend_name()
         )
     except FileNotFoundError as e:
         raise HTTPException(status_code=400, detail="File not found")
@@ -300,6 +302,14 @@ def pipeline_endpoint(request: PipelineRequest):
 @app.get("/metrics", response_model=MetricsSnapshot)
 def metrics_endpoint():
     return snapshot()
+
+@app.get("/vector-stats")
+def vector_stats_endpoint():
+    return {
+        "backend": vector_store.backend_name(),
+        "vectors": vector_store.count_vectors(),
+        "embedding_model": settings.EMBED_MODEL
+    }
 
 @app.post("/metrics/reset")
 def reset_metrics_endpoint():

@@ -1,7 +1,8 @@
 import math
 import time
 from app.config import settings
-from app.lance_db import get_table, table_exists, embed_texts
+from app import vector_store
+from app.lance_db import embed_texts
 from app.models import RetrievedChunk, RetrievalResponse
 from app.telemetry import logger
 
@@ -61,7 +62,7 @@ def none_if_nan(value):
 def retrieve(query: str, top_k: int | None, source_filter: str | None, section_filter: str | None) -> RetrievalResponse:
     start_time = time.perf_counter()
     
-    if not table_exists():
+    if vector_store.count_vectors() == 0:
         return RetrievalResponse(
             question=query,
             top_k_used=0,
@@ -84,21 +85,16 @@ def retrieve(query: str, top_k: int | None, source_filter: str | None, section_f
             chunks=[]
         )
         
-    table = get_table()
-    search = table.search(query_embedding)
-    
-    filters = []
-    if source_filter is not None:
-        filters.append(f"source = '{source_filter}'")
-    if section_filter is not None:
-        filters.append(f"section = '{section_filter}'")
-        
-    if filters:
-        search = search.where(" AND ".join(filters))
-        
-    search = search.limit(k)
-        
-    results = search.to_pandas()
+    results = vector_store.search(query_embedding, k, source_filter, section_filter)
+    if results.empty:
+        return RetrievalResponse(
+            question=query,
+            top_k_used=k,
+            confidence=0.0,
+            evidence_coverage=0.0,
+            retrieval_time_ms=0.0,
+            chunks=[]
+        )
     
     chunks = []
     scores = []

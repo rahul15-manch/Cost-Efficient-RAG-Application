@@ -1,0 +1,28 @@
+{
+  "lancedb": {
+    "backend_name": "lancedb",
+    "queries": 5,
+    "runs_per_query": 50,
+    "vector_count": 9,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "avg_ms": 1.9096858286648057,
+    "median_ms": 1.89339549979195,
+    "p95_ms": 2.030385602847673,
+    "min_ms": 1.8095830018864945,
+    "max_ms": 2.2123750095488504,
+    "std_ms": 0.06386965426272333
+  },
+  "faiss": {
+    "backend_name": "faiss",
+    "queries": 5,
+    "runs_per_query": 50,
+    "vector_count": 9,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "avg_ms": 0.08063832012703642,
+    "median_ms": 0.07970850128913298,
+    "p95_ms": 0.08867064971127547,
+    "min_ms": 0.06895800470374525,
+    "max_ms": 0.29683299362659454,
+    "std_ms": 0.01567698782634305
+  }
+}

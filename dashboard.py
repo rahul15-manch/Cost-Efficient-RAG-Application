@@ -13,6 +13,20 @@ st.title("🔍 Trust-Aware Cost-Efficient RAG")
 
 tab_ask, tab_trust, tab_bench, tab_export = st.tabs(["Ask", "Trust", "Benchmarks", "Exports"])
 
+st.sidebar.header("Configuration")
+try:
+    stats_res = requests.get(f"{API_URL}/vector-stats")
+    if stats_res.status_code == 200:
+        stats = stats_res.json()
+        current_backend = stats.get("backend", "lancedb")
+        options = ["lancedb", "faiss"]
+        idx = options.index(current_backend) if current_backend in options else 0
+        st.sidebar.selectbox("Vector Backend (Display Only)", options, index=idx)
+        st.sidebar.metric("Vectors Indexed", stats.get("vectors", 0))
+        st.sidebar.caption(f"Embedding: {stats.get('embedding_model', 'N/A')}")
+except Exception:
+    st.sidebar.warning("Could not fetch vector stats. Is the API running?")
+
 if "last_pipeline_res" not in st.session_state:
     st.session_state.last_pipeline_res = None
 
