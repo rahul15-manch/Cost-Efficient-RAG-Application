@@ -9,3 +9,4 @@ nltk==3.8.1
 lancedb
 sentence-transformers
 pyarrow
+groq

@@ -1,12 +1,12 @@
+import os
+
+# Set test environment overrides BEFORE app import
+os.environ["LANCEDB_PATH"] = "tests/test_lancedb"
+os.environ["CHUNK_SIZE"] = "600"
+os.environ["CHUNK_OVERLAP"] = "100"
+# Note: We rely on .env for GROQ_API_KEY so generation tests use real inference
+
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     if exitstatus == 0:
-        terminalreporter.write_sep("=", "Integration Suite Summary: ALL TESTS PASSED SUCCESSFULLY", bold=True, green=True)
-        terminalreporter.write_line("Verified End-to-End:")
-        terminalreporter.write_line(" ✓ API Health & Telemetry Logging")
-        terminalreporter.write_line(" ✓ Multi-format Ingestion (PDF, HTML, MD)")
-        terminalreporter.write_line(" ✓ Sentence-Aware Chunking & Overlap")
-        terminalreporter.write_line(" ✓ Idempotent Deduplication (No Duplicates)")
-        terminalreporter.write_line(" ✓ LanceDB Vector Storage & Embeddings")
-        terminalreporter.write_line(" ✓ Adaptive Retrieval (Top-K adjustment)")
-        terminalreporter.write_line(" ✓ Confidence Scoring & Evidence Coverage")
-        terminalreporter.write_line(" ✓ Metadata Filtering by Source & Section")
+        terminalreporter.write_sep("=", "Trust-Aware RAG Integration Suite: PASSED", bold=True, green=True)
+        terminalreporter.write_line("All pipeline checks succeeded.")
