@@ -7,8 +7,8 @@ class Settings(BaseSettings):
     
     LANCEDB_PATH: str = "data/processed/lancedb"
     
-    CHUNK_SIZE: int = 500
-    CHUNK_OVERLAP: int = 50
+    CHUNK_SIZE: int = 600
+    CHUNK_OVERLAP: int = 100
     
     DEFAULT_TOP_K: int = 3
     MIN_TOP_K: int = 1

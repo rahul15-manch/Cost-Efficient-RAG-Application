@@ -5,3 +5,7 @@ python-dotenv==1.0.1
 pymupdf==1.23.21
 beautifulsoup4==4.12.3
 markdown==3.5.2
+nltk==3.8.1
+lancedb
+sentence-transformers
+pyarrow
