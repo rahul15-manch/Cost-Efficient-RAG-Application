@@ -9,7 +9,7 @@
 | nDCG@5       | 1.0       |         1    |
 | Faithfulness | -         |         0.99 |
 | Relevance    | -         |         1    |
-| Avg latency  | 1356.0    |        21.3  |
+| Avg latency  | 1222.3    |        16.6  |
 | Avg tokens   | -         |      1036    |
 
 ## Generation Summary
@@ -17,4 +17,4 @@
 - Faithfulness: 0.99
 - Relevance: 1.00
 - Tokens (mean): 1035.80
-- Latency (mean ms): 1640.69
+- Latency (mean ms): 268.27

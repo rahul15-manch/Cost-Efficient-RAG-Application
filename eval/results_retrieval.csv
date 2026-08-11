@@ -4,5 +4,5 @@ MRR,1.0,1.0
 nDCG@5,1.0,1.0
 Faithfulness,-,0.99
 Relevance,-,1.00
-Avg latency,1356.0,21.3
+Avg latency,1222.3,16.6
 Avg tokens,-,1036
