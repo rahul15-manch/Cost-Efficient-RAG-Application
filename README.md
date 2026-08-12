@@ -173,26 +173,24 @@ Benefits:
 
 Re-running ingestion on the same corpus produces identical vector counts.
 
----
 
 ## Interactive Streamlit Dashboard
+![Architecture Diagram](https://raw.githubusercontent.com/rahul15-manch/Cost-Efficient-RAG-Application/main/logs/imgs/image.png)
 
 
 
----
+## Benchmark Results
 
-# Benchmark Results
+### Retrieval Latency
 
-## Retrieval Latency
-
-### FAISS vs LanceDB
+####  FAISS vs LanceDB
 
 | Backend | Avg (ms) | Median (ms) | P95 (ms) |
 |----------|----------|-------------|----------|
 | LanceDB | 1.9 | 1.9 | 2.0 |
 | FAISS | 0.1 | 0.1 | 0.1 |
 
-### Result
+####  Result
 
 > FAISS achieved approximately **23x faster retrieval latency** than embedded LanceDB.
 
@@ -237,7 +235,7 @@ Maintains retrieval quality while reducing latency and token consumption.
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---------|-------------|
@@ -396,7 +394,7 @@ Response:
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 trust-aware-rag/
