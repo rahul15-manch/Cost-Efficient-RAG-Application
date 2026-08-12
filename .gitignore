@@ -4,7 +4,8 @@ __pycache__/
 logs/*.log
 data/processed/lancedb/
 .vscode/
-.DS_Storevenv/
+.DS_Store
+venv/
 __pycache__/
 *.pyc
 .env
