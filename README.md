@@ -9,7 +9,7 @@
 
 ---
 
-# Overview
+## Overview
 
 Large Language Models are powerful, but they suffer from three major production challenges:
 
@@ -27,7 +27,7 @@ This design ensures that correctness is prioritized over verbosity.
 
 ---
 
-# System Architecture
+## System Architecture
 ```mermaid
 flowchart TD
     A[PDF / HTML / MD] --> B[Document Processing<br/>Cleaning & Parsing]
@@ -53,7 +53,7 @@ flowchart TD
     style K fill:#d4edda,stroke:#155724,stroke-width:2px
 ```
 
-# Key Engineering Features
+## Key Engineering Features
 **Multi-Vector Backend**: A unified retrieval interface supports multiple vector search engines:
 
 | Backend | Purpose |
@@ -67,9 +67,7 @@ This architecture allows seamless backend switching depending on latency and ret
 
 ## Trust & Observability Layer
 
-The core innovation of the project.
-
-Before generation, the system computes:
+The core innovation of the project.Before generation, the system computes:
 
 ### Confidence Score
 
@@ -81,10 +79,7 @@ confidence = exp(-distance)
 
 ### Evidence Coverage
 
-Measures how much retrieved context supports the query.
-
-Only when both metrics exceed configurable thresholds does generation proceed.
-
+Measures how much retrieved context supports the query.Only when both metrics exceed configurable thresholds does generation proceed.
 Otherwise:
 
 ```text
@@ -104,9 +99,8 @@ The dashboard visualizes:
 
 allowing users to inspect why an answer was generated.
 
----
 
-## Adaptive-k Retrieval
+### Adaptive-k Retrieval
 
 Traditional RAG systems use a fixed:
 
@@ -116,7 +110,7 @@ top_k = 5
 
 This project dynamically scales retrieval depth based on query complexity.
 
-### Benefits
+## Benefits
 
 - Lower token usage
 - Reduced latency
@@ -183,15 +177,7 @@ Re-running ingestion on the same corpus produces identical vector counts.
 
 ## Interactive Streamlit Dashboard
 
-A production-style observability dashboard displaying:
 
-- Query latency
-- Retrieval confidence
-- Evidence coverage
-- Token usage
-- Citation visualization
-- Benchmark comparisons
-- Backend performance analysis
 
 ---
 
